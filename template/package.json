@@ -14,11 +14,15 @@
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
+    "bootstrap": "^3.3.5",
+    "jquery": "^1.11.1",
+    "js-base64": "^2.1.9",
+    "js-cookie": "^2.1.0",
+    "moment": "^2.11.1",
+    "uuid": "^2.0.1",
     "vue": "^1.0.17",
     "vue-router": "^0.7.5",
-    "jquery": "^1.11.1",
-    "bootstrap": "^3.3.5",
-    "moment": "^2.11.1"
+    "weixin-js-sdk": "^1.0.7"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

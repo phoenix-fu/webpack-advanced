@@ -18,7 +18,9 @@ module.exports = {
       'components': path.resolve(__dirname, '../src/components'),
       'web': path.resolve(__dirname, '../web_modules'),
       'bussiness': path.resolve(__dirname, '../src/bussiness'),
-      'img': path.resolve(__dirname, '../src/assets/img')
+      'img': path.resolve(__dirname, '../src/assets/img'),
+      'routers': path.resolve(__dirname, '../src/routers'),
+      'validation': path.resolve(__dirname, '../src/validation')
     }
   },
   resolveLoader: {

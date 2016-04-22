@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import common from 'web/common/common'
 
 export default function () {
     Vue.directive('disabled', function (value) {
@@ -32,5 +33,16 @@ export default function () {
             this.el.removeEventListener('change', this.handler)
         }
 
+    })
+
+    Vue.directive('doc-title', function (value) {
+        // document.title = value
+        common.setDocTitle(value)
+    })
+
+    Vue.directive('auto-resize', function () {
+        this.el.style.overflow = 'hidden'
+        this.el.style.height = '1px'
+        this.el.style.height = this.el.scrollHeight + 'px'
     })
 }

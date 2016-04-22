@@ -31,6 +31,20 @@ export default function () {
 
     })
 
+    Vue.filter('toShortTime', {
+
+        read: function (val, type) {
+            type = type === undefined ? common.timeFormatType.standard : type
+            var timeArray = common.getTimeArray(val)
+            return timeArray[3] + type[3] + timeArray[4]
+        },
+
+        write: function (val, oldVal) {
+            return (new Date(val)).getTime() / 1000
+        }
+
+    })
+
     Vue.filter('toMoney', function (val) {
         return common.formatIntMoney(val)
     })
@@ -64,5 +78,9 @@ export default function () {
             return (new Date(val)).getTime() / 1000
         }
 
+    })
+
+    Vue.filter('fromNow', function (value){
+        return common.fromNow(value)
     })
 }

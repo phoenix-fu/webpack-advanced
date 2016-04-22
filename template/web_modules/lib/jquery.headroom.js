@@ -1,3 +1,5 @@
+import 'web/lib/headroom.min'
+
 (function($) {
 
     if (!$) {

@@ -1,3 +1,6 @@
+import yii from 'web/yii/yii.validation.ext'
+import config from 'web/config'
+
 var common = {
 
     getTimestamp: function () {
@@ -151,6 +154,43 @@ var common = {
         var element = document.createElement('input')
         element.setAttribute('type', type)
         return element.type !== 'text'
+    },
+
+    pluralize: function (time,lable) {
+        return time + lable
+    },
+
+    fromNow: function (time) {
+        const between = (Date.now() / 1000 - Number(time)) < 0 ? 0 : Date.now() / 1000 - Number(time) 
+        if(between < 3600){
+            return this.pluralize(~~(between / 60), ' 分钟')
+        } else if (between < 86400) {
+            return this.pluralize(~~(between/3600), ' 小时')
+        } else {
+            return this.pluralize(~~(between / 84600), ' 天')
+        }
+    },
+
+    toFirstUpper (word) {
+        return word.substring(0, 1).toUpperCase() + word.substring(1)
+    },
+
+    tempIFrame () {
+        let $iframe = $('<iframe src="/static/favicon.ico" style="display: none"></iframe>').on('load', function() {
+            setTimeout(function() {
+                $iframe.off('load').remove()
+            }, 0)
+        }).appendTo($('body'))
+    },
+
+    setDocTitle (title) {
+        if (typeof title !== 'string') {
+            title = document.appTitle === undefined ? config.title : document.appTitle
+        }
+        if (title != document.title) {
+            document.title = title
+            this.tempIFrame()
+        }
     }
 
 }

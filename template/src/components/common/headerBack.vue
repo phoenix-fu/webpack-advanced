@@ -1,5 +1,5 @@
 <template>
-    <header transition="fade" transition-mode="out-in" class="headroom sl-header slideDown headroom--top" id="header" :style="header_style">
+    <header transition="fade" transition-mode="out-in" class="headroom sl-header slideDown headroom--top" id="header">
     	<div class="container">
     		<div class="row">
     			<div class="col-xs-1"><a @click="back" href="javascript:void(0);" class="button-back"><span class="fa fa-angle-left"></span></a></div>
@@ -10,22 +10,21 @@
 </template>
 
 <script>
+import 'web/lib/jquery.headroom'
+import config from 'web/config'
+
 export default {
 	props: {
         title: {
             type: String,
-            default: ''
+            default: config.title
         },
 
-        header_style: {
-            type: String,
-            default: ''
-        }
-    },
-
-    data: function () {
-        return {
-            assets: {}
+        backRoute: {
+            type: Object,
+            default () {
+                return null
+            }
         }
     },
 
@@ -33,17 +32,13 @@ export default {
         $.startHeadRoom()
     },
 
-    activate: function (done) {
-        var self = this
-        $.extendAssetPath().done(function (result) {
-            self.assets = result.data
-            done()
-        })
-    },
-
     methods: {
         back: function () {
-            history.back()
+            if (this.backRoute === null) {
+                history.back()
+            } else {
+                this.go(this.backRoute)
+            }
         }
     }
 }

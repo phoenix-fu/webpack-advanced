@@ -1,16 +1,16 @@
 <template>
     <span class="value \{{ starCss }}">
-	    <span @click="setStarCount(1)" class="glyphicon glyphicon-star"></span>
-	    <span @click="setStarCount(2)" class="glyphicon glyphicon-star"></span>
-	    <span @click="setStarCount(3)" class="glyphicon glyphicon-star"></span>
-	    <span @click="setStarCount(4)" class="glyphicon glyphicon-star"></span>
-	    <span @click="setStarCount(5)" class="glyphicon glyphicon-star"></span>
+        <span @click="setStarCount(1)" class="fa fa-star"></span>
+        <span @click="setStarCount(2)" class="fa fa-star"></span>
+        <span @click="setStarCount(3)" class="fa fa-star"></span>
+        <span @click="setStarCount(4)" class="fa fa-star"></span>
+        <span @click="setStarCount(5)" class="fa fa-star"></span>
     </span>
 </template>
 
 <script>
 export default {
-	props: {
+    props: {
         starCount: {
             type: Number,
             default: 1

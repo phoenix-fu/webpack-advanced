@@ -1,3 +1,5 @@
+import 'web/lib/bootstrap.min'
+
 $(function () {
 	$.extend({
 

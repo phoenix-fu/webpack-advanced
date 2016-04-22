@@ -4,16 +4,18 @@ var baseConfig = require('./webpack.base.conf')
 var cssLoaders = require('./css-loaders')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path')
 
 // whether to generate source map for production files.
 // disabling this can speed up the build.
-var SOURCE_MAP = true
+var SOURCE_MAP = false
 
 module.exports = merge(baseConfig, {
   devtool: SOURCE_MAP ? '#source-map' : false,
   output: {
     // naming output files with hashes for better caching.
     // dist/index.html will be auto-generated with correct URLs.
+    path: path.resolve(__dirname, '../../wechat-crm/frontend/static'),
     filename: '[name].[chunkhash].js',
     chunkFilename: '[id].[chunkhash].js'
   },

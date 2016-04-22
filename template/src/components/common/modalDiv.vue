@@ -4,7 +4,7 @@
     		<div class="modal-dialog modal-sm" role="document">
     			<div class="modal-container modal-content modal-skin">
     				<div v-if="showCloseBtn" class="modal-close"><span @click="show = false" class="fa fa-times-circle"></span></div>
-					<div :style="{height: contentHeight + \'px\'}" style="overflow-y: auto">
+					<div :style="{height: contentHeight + 'px'}" style="overflow-y: auto">
     					<slot></slot>
     				</div>
     			</div>

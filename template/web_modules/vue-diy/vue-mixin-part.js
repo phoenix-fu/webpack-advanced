@@ -1,3 +1,6 @@
+import scrollLoad from 'web/common/scrollLoad'
+import common from 'web/common/common'
+
 var mixin = {
     apiData: {
         data: function () {
@@ -35,7 +38,8 @@ var mixin = {
             var self = this
             scrollLoad.init(function () {
                 if (self.$children !== null) {
-                    self.$broadcast('scroll')
+                    // self.$broadcast('scroll')
+                    self.$emit('scroll')
                 }
             })
         }
@@ -72,6 +76,16 @@ var mixin = {
                 }
             }
 
+        }
+    },
+
+    clearTitle: {
+        route: {
+            canActivate (transition) {
+                // console.log('can activate')
+                document.appTitle = ''
+                transition.next()
+            }
         }
     }
 }

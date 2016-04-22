@@ -18,7 +18,7 @@
     		</div>
     		<div class="modal-footer">
     			<button @click="show = false" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-    			<button @click="ok" v-disabled="!isSelected" :class="[isSelected ? \'btn-primary\' : \'btn-default\']" type="button" class="btn">确定</button>
+    			<button @click="ok" v-disabled="!isSelected" :class="[isSelected ? 'btn-primary' : 'btn-default']" type="button" class="btn">确定</button>
     		</div>
     	</modal-div>
     </div>

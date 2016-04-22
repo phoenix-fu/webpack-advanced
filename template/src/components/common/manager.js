@@ -18,5 +18,6 @@ export default {
         Vue.buildComponent('star', 'common/star')
         Vue.buildComponent('tabs', 'common/tabs')
         Vue.buildComponent('upload', 'common/upload')
+        Vue.buildComponent('alert', 'common/alert')
     }
 }

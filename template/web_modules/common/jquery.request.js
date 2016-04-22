@@ -1,12 +1,15 @@
 // extend jQuery
 import common from 'web/common/common'
 import appConfig from 'web/config'
+import {Base64} from 'js-base64'
 
 $.extend({
     defaultOptions: {
         type: 'get',
         third: false
     },
+
+    autoLogining: false,
 
     mainRequest: function (url, data, options) {
         if (options.type === 'post') {
@@ -17,8 +20,9 @@ $.extend({
         return $.ajax({
             type: options.type,
             url: url,
-            data: data
-            //contentType: 'application/json'
+            data: data,
+            contentType: 'application/json',
+            dataType: 'json'
         })
     },
 
@@ -42,13 +46,23 @@ $.extend({
             var extendData = $.extend({}, result, {assets: appConfig.asset})
 
             if ((!$.requestOK(extendData) || options.type === 'get') && !options.third) {
-                appConfig.checkVersion(extendData.global.version)
+                // appConfig.checkVersion(extendData.global.version)
             }
 
+            $.setCsrf(extendData)
+
             deferred.resolve(extendData)
-        }).fail(function () {
-            appConfig.ajaxCheckVersion()
-            deferred.reject()
+        }).fail(function (result) {
+            if ($.autoLogining) {
+                return
+            }
+
+            console.log(result)
+            if ($.autoLogin(result)) {
+                return
+            }
+            // appConfig.ajaxCheckVersion()
+            deferred.reject(result.responseJSON.status)
         })
 
         return deferred.promise()
@@ -69,21 +83,25 @@ $.extend({
         return {}
     },
 
-    load: function (data) {
+    load: function (data, { filename } = {}) {
         return $.ajax({
             type: 'post',
             url: common.addPathName('api/v1/file/upload'),
-            data: $.getFormData(data),
+            data: $.getFormData(data, filename),
             cache: false,
             processData: false,
             contentType: false
         })
     },
 
-    getFormData: function (data) {
+    getFormData: function (data, filename) {
         var formData = new FormData()
-        for (key in data) {
-            formData.append(key, data[key])
+        for (var key in data) {
+            if (typeof filename === 'string') {
+                formData.append(key, data[key], filename)
+            } else {
+                formData.append(key, data[key])
+            }
         }
         return formData
     },
@@ -125,6 +143,31 @@ $.extend({
 
     postThirdRequest: function (url, data, options) {
         return $.request(url, data, $.extend({}, options, {type: 'post', third: true}))
+    },
+
+    autoLogin (result) {
+        if (result.status === 403) {
+            $.autoLogining = true
+            console.log(window.location.href)
+            let encodeUrl = Base64.encode(window.location.href)
+            let scope = window.location.hash.indexOf('scope=1') >= 0
+            if (scope) {
+                window.location.href = `/site?url=${encodeUrl}&scope=1`
+            } else {
+                window.location.href = `/site?url=${encodeUrl}`
+            }
+
+            return true
+        }
+        return false
+    },
+
+    setCsrf (result) {
+        if(result !== undefined && result.global !== undefined &&
+                result.global.csrfParam !== undefined && result.global.csrfToken !== undefined) {
+            $('meta[name=csrf-param]').attr('content', result.global.csrfParam)
+            $('meta[name=csrf-token]').attr('content', result.global.csrfToken)
+        }
     }
 })
 

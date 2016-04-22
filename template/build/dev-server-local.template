@@ -1,0 +1,10 @@
+var proxyTable = {
+    // '/api': 'http://myifa:8011',
+}
+
+var port = 8080
+
+module.exports = {
+    proxyTable: proxyTable,
+    port : port
+}
