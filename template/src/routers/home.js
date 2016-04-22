@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Hello from './App'
+import Hello from '../App'
 
 export default () => {
     return {
