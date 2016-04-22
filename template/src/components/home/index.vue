@@ -74,9 +74,10 @@ export default {
             // transition.next({})
             // console.log($r)
             // 由于获取图片已改成import方式，此处只作模拟拿数据
-			this.handleRequest($api.getRequest(apis.asset.get)).done(function (result) {
-                transition.next(result)
-            })
+			// this.handleRequest($api.getRequest(apis.asset.get)).done(function (result) {
+   //              transition.next(result)
+   //          })
+            transition.next(result)
 		}
 	}
 }
